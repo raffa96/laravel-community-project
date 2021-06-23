@@ -112,7 +112,7 @@ class ThreadControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$threadModel->id}"
+            "/api/v1/threads/$threadModel->id"
         );
 
         $response->assertStatus(200);
@@ -137,7 +137,7 @@ class ThreadControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$threadId}"
+            "/api/v1/threads/$threadId"
         );
 
         $response->assertStatus(404);
@@ -155,7 +155,7 @@ class ThreadControllerTest extends TestCase
 
         $response = $this->json(
             'PUT',
-            "/api/v1/threads/{$threadModel->id}",
+            "/api/v1/threads/$threadModel->id",
             $requestData
         );
 
@@ -183,7 +183,7 @@ class ThreadControllerTest extends TestCase
 
         $response = $this->json(
             'PUT',
-            "/api/v1/threads/{$threadId}"
+            "/api/v1/threads/$threadId"
         );
 
         $response->assertStatus(404);
@@ -198,7 +198,7 @@ class ThreadControllerTest extends TestCase
 
         $response = $this->json(
             'DELETE',
-            "/api/v1/threads/{$threadModel->id}"
+            "/api/v1/threads/$threadModel->id"
         );
 
         $response->assertStatus(204);
@@ -213,7 +213,7 @@ class ThreadControllerTest extends TestCase
 
         $response = $this->json(
             'DELETE',
-            "/api/v1/threads/{$threadId}"
+            "/api/v1/threads/$threadId"
         );
 
         $response->assertStatus(404);
