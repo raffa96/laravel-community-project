@@ -33,7 +33,7 @@ class CommentControllerTest extends TestCase
         ];
     }
 
-    protected function createThreadWithCommentsAndGetFirstOne()
+    protected function createThreadWithCommentsAndGetFirstOne(): array
     {
         $threadModel = Thread::factory()->has(
             Comment::factory()->count(rand(1, 10))
@@ -65,7 +65,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$threadModel->id}/comments"
+            "/api/v1/threads/$threadModel->id/comments"
         );
 
         $response->assertStatus(200);
@@ -86,7 +86,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$thread_id}/comments"
+            "/api/v1/threads/$thread_id/comments"
         );
 
         $response->assertStatus(404);
@@ -99,7 +99,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$threadModel->id}/comments"
+            "/api/v1/threads/$threadModel->id/comments"
         );
 
         $response->assertStatus(200);
@@ -120,7 +120,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'POST',
-            "/api/v1/threads/{$threadModel->id}/comments",
+            "/api/v1/threads/$threadModel->id/comments",
             $requestData
         );
 
@@ -143,7 +143,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentModel->id}"
+            "/api/v1/threads/$threadModel->id/comments/$commentModel->id"
         );
 
         $response->assertStatus(200);
@@ -169,7 +169,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentId}"
+            "/api/v1/threads/$threadModel->id/comments/$commentId"
         );
 
         $response->assertStatus(404);
@@ -186,7 +186,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'GET',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentModel->id}"
+            "/api/v1/threads/$threadModel->id/comments/$commentModel->id"
         );
 
         $response->assertStatus(404);
@@ -204,7 +204,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'PUT',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentModel->id}",
+            "/api/v1/threads/$threadModel->id/comments/$commentModel->id",
             $requestData
         );
 
@@ -239,7 +239,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'PUT',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentModel->id}",
+            "/api/v1/threads/$threadModel->id/comments/$commentModel->id",
             $requestData
         );
 
@@ -263,7 +263,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'PUT',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentId}",
+            "/api/v1/threads/$threadModel->id/comments/$commentId",
             $requestData
         );
 
@@ -284,7 +284,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'DELETE',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentModel->id}"
+            "/api/v1/threads/$threadModel->id/comments/$commentModel->id"
         );
 
         $response->assertStatus(204);
@@ -303,7 +303,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'DELETE',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentModel->id}"
+            "/api/v1/threads/$threadModel->id/comments/$commentModel->id"
         );
 
         $response->assertStatus(404);
@@ -320,7 +320,7 @@ class CommentControllerTest extends TestCase
 
         $response = $this->json(
             'DELETE',
-            "/api/v1/threads/{$threadModel->id}/comments/{$commentId}"
+            "/api/v1/threads/$threadModel->id/comments/$commentId"
         );
 
         $response->assertStatus(404);

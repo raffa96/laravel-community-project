@@ -9,6 +9,7 @@ use App\Http\Resources\V1\Thread\CommentCollection;
 use App\Http\Resources\V1\Thread\CommentResource;
 use App\Models\Comment;
 use App\Models\Thread;
+use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
@@ -24,9 +25,7 @@ class CommentController extends Controller
          * Model binding resolution logic, for the endpoint.
          */
         Route::bind('comment', function($comment, $route) {
-            return Comment
-                ::where('thread_id', '=', $route->parameter('thread'))
-                ->findOrFail($comment);
+            return Comment::where('thread_id', '=', $route->parameter('thread'))->findOrFail($comment);
         });
     }
 
@@ -50,12 +49,14 @@ class CommentController extends Controller
      * @param  Thread $thread
      * @return JsonResource
      */
-    public function store(CommentStoreRequest $request,
-                            Thread $thread)
+    public function store(CommentStoreRequest $request, Thread $thread)
     {
         $comment = new Comment();
+
         $comment->fill($request->validated());
+
         $comment->thread_id = $thread->id;
+
         $comment->save();
 
         return new CommentResource($comment);
@@ -81,9 +82,7 @@ class CommentController extends Controller
      * @param  Comment  $comment
      * @return JsonResource
      */
-    public function update(CommentUpdateRequest $request,
-                           Thread $thread,
-                           Comment $comment)
+    public function update(CommentUpdateRequest $request, Thread $thread, Comment $comment)
     {
         $comment->fill($request->validated());
 
@@ -93,11 +92,12 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Thread $thread
-     * @param  Comment $comment
+     * @param Thread $thread
+     * @param Comment $comment
      * @return Response
+     * @throws Exception
      */
-    public function destroy(Thread $thread, Comment $comment)
+    public function destroy(Thread $thread, Comment $comment): Response
     {
         $comment->delete();
 

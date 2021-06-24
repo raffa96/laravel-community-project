@@ -3,6 +3,7 @@
 namespace App\Http\Resources\V1;
 
 use App\Http\Resources\V1\Thread\CommentCollection;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ThreadResource extends JsonResource
@@ -10,10 +11,10 @@ class ThreadResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id'    => $this->id,
