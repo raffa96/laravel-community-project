@@ -8,6 +8,7 @@ use App\Http\Requests\V1\ThreadUpdateRequest;
 use App\Http\Resources\V1\ThreadCollection;
 use App\Http\Resources\V1\ThreadResource;
 use App\Models\Thread;
+use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Response;
 
@@ -61,6 +62,7 @@ class ThreadController extends Controller
         $data = $request->validated();
 
         $thread->fill($data);
+
         $thread->save();
 
         return new ThreadResource($thread);
@@ -69,10 +71,11 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Thread $thread
+     * @param Thread $thread
      * @return Response
+     * @throws Exception
      */
-    public function destroy(Thread $thread)
+    public function destroy(Thread $thread): Response
     {
         $thread->delete();
 
